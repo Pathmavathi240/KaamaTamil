@@ -1,1 +1,1 @@
-from . import start, play
+from . import start, play, vplay
