@@ -1,22 +1,15 @@
-from pyrogram import Client
-from pytgcalls import PyTgCalls
-import os
-from dotenv import load_dotenv
+from pyrogram import Client, idle
+from Kaamam import app, call
+from Kaamam.plugins import *
 
-load_dotenv()
+import logging
 
-API_ID = int(os.getenv("API_ID"))
-API_HASH = os.getenv("API_HASH")
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-
-app = Client("my_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
-call = PyTgCalls(app)
-
-from Kaamam.plugins import *  # load all plugins
+logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
-    print("✅ Bot Started!")
+    print("✅ Kaamam Music Bot Started...")
     app.start()
     call.start()
-    print("🎵 Ready to play music!")
     idle()
+    app.stop()
+    print("🛑 Bot Stopped.")
