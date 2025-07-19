@@ -36,7 +36,7 @@ async def main():
     print("✅ Bot and Userbot Started")
     print("✅ Voice Call Client Started")
 
-    await connect_mongo()
+    db = connect_mongo()  # ✅ NO await needed here
     print("📦 Connected to MongoDB")
     print("🤖 Bot is now running...")
 
