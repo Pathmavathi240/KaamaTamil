@@ -5,7 +5,7 @@ import yt_dlp
 import os
 
 # Load global app and call if not already done in __main__.py
-from KaamaTamil.__main__ import app, call
+from Kaamam.__main__ import app, call
 
 @Client.on_message(filters.command("vplay"))
 async def vplay_command(client, message):
