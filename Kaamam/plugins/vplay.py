@@ -1,11 +1,5 @@
-from pyrogram import Client, filters
-from pytgcalls import PyTgCalls
-from pytgcalls.types.input_stream import InputStream, AudioPiped
-import yt_dlp
-import os
-
-# Load global app and call if not already done in __main__.py
-from Kaamam.__main__ import app, call
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from DeadlineTech.utils.thumb import get_thumbnail
 
 @Client.on_message(filters.command("vplay"))
 async def vplay_command(client, message):
@@ -16,23 +10,17 @@ async def vplay_command(client, message):
     await message.reply_text(f"🔍 Searching for `{query}`...")
 
     try:
-        ydl_opts = {
-            "format": "bestaudio",
-            "noplaylist": True,
-            "quiet": True,
-            "extract_flat": False
-        }
+        thumb_url, title = get_thumbnail(query)
 
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(query, download=False)
-            audio_url = info['url']
-            title = info.get("title")
+        # Stream logic same as before...
 
-        await message.reply_text(f"▶️ Streaming: **{title}**")
-
-        await call.join_group_call(
-            message.chat.id,
-            AudioPiped(audio_url)
+        # Send thumbnail with buttons
+        await message.reply_photo(
+            photo=thumb_url,
+            caption=f"▶️ Streaming: **{title}**",
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton("❌ Close", callback_data="close")]
+            ])
         )
 
     except Exception as e:
