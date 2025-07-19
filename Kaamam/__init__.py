@@ -1,1 +1,1 @@
-from . import start, play, vplay, callback
+from . import start, play, vplay, callback, control 
