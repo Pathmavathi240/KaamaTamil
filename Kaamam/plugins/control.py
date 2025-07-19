@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
 from pytgcalls.exceptions import GroupCallNotFoundError
-from DeadlineTech.__main__ import call
+from Kaamam.__main__ import call
 
 @Client.on_message(filters.command("pause"))
 async def pause_command(client, message):
