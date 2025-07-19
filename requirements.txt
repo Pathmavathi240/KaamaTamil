@@ -2,4 +2,6 @@ pyrogram
 tgcrypto
 pytgcalls
 yt-dlp
+pymongo
 python-dotenv
+youtube-search-python
