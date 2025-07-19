@@ -1,12 +1,9 @@
 import asyncio
-from pyrogram import Client
+from pyrogram import Client, idle
 from pytgcalls import PyTgCalls
-from Kaamam.config import API_ID, API_HASH, BOT_TOKEN, STRING_SESSION, MONGO_URL
-from Kaamam.utils.mongo import connect_mongo
-from Kaamam import call
 
-from Kaamam import plugins  # make sure plugins is loaded
-from pyrogram import idle
+from Kaamam.config import API_ID, API_HASH, BOT_TOKEN, STRING_SESSION
+from Kaamam.utils.mongo import connect_mongo
 
 # 🔹 Bot Client
 bot = Client(
@@ -17,7 +14,7 @@ bot = Client(
     plugins=dict(root="Kaamam/plugins")
 )
 
-# 🔹 Userbot Client (via String Session)
+# 🔹 Userbot Client
 user = Client(
     name="KaamamUser",
     api_id=API_ID,
@@ -25,14 +22,13 @@ user = Client(
     session_string=STRING_SESSION
 )
 
-# 🔹 Voice Call Client (PyTgCalls)
+# 🔹 Voice Call Client
 call = PyTgCalls(user)
 
 
 async def main():
     print("🔁 Starting Clients...")
 
-    # ✅ Start all clients
     await bot.start()
     await user.start()
     await call.start()
@@ -40,9 +36,7 @@ async def main():
     print("✅ Bot and Userbot Started")
     print("✅ Voice Call Client Started")
 
-    # ✅ Connect to MongoDB
     await connect_mongo()
-
     print("📦 Connected to MongoDB")
     print("🤖 Bot is now running...")
 
