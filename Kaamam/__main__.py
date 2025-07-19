@@ -12,7 +12,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 app = Client("my_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 call = PyTgCalls(app)
 
-from KaamaTamil.plugins import *  # load all plugins
+from Kaamam.plugins import *  # load all plugins
 
 if __name__ == "__main__":
     print("✅ Bot Started!")
