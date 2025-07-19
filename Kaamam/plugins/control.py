@@ -1,32 +1,34 @@
 from pyrogram import Client, filters
-from pytgcalls import PyTgCalls
-from pytgcalls.exceptions import GroupCallNotFoundError
-from Kaamam.__main__ import call
+from pyrogram.types import Message
+from pytgcalls.types.input_stream import AudioPiped
+
+from Kaamam import call
+from Kaamam.utils.queue import pop_next
 
 @Client.on_message(filters.command("pause"))
-async def pause_command(client, message):
-    try:
-        await call.pause_stream(message.chat.id)
-        await message.reply_text("⏸️ Music Paused")
-    except GroupCallNotFoundError:
-        await message.reply_text("❌ VC Not Active")
+async def pause_stream(_, message: Message):
+    await call.pause_stream(message.chat.id)
+    await message.reply_text("⏸️ Music paused.")
 
 @Client.on_message(filters.command("resume"))
-async def resume_command(client, message):
-    try:
-        await call.resume_stream(message.chat.id)
-        await message.reply_text("▶️ Music Resumed")
-    except GroupCallNotFoundError:
-        await message.reply_text("❌ VC Not Active")
-
-@Client.on_message(filters.command("leave"))
-async def leave_command(client, message):
-    try:
-        await call.leave_group_call(message.chat.id)
-        await message.reply_text("👋 Left VC")
-    except GroupCallNotFoundError:
-        await message.reply_text("❌ Not in VC")
+async def resume_stream(_, message: Message):
+    await call.resume_stream(message.chat.id)
+    await message.reply_text("▶️ Music resumed.")
 
 @Client.on_message(filters.command("skip"))
-async def skip_command(client, message):
-    await message.reply_text("⏭️ Skip not implemented yet.")
+async def skip_stream(_, message: Message):
+    next_song = pop_next(message.chat.id)
+    if next_song:
+        await call.change_stream(message.chat.id, AudioPiped(next_song["url"]))
+        await message.reply_photo(
+            photo=next_song["thumb"],
+            caption=f"⏭️ Skipped to next:\n**{next_song['title']}**"
+        )
+    else:
+        await call.leave_group_call(message.chat.id)
+        await message.reply_text("❌ No more songs in queue.")
+
+@Client.on_message(filters.command("stop"))
+async def stop_stream(_, message: Message):
+    await call.leave_group_call(message.chat.id)
+    await message.reply_text("🛑 Music stopped and VC left.")
