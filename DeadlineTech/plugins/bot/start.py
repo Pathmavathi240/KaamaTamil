@@ -95,29 +95,28 @@ async def start_pm(client, message: Message, _):
         for emoji in spinner_emojis:
             loading = await message.reply_text(emoji)
             await asyncio.sleep(0.4)
-            await loading.delete()
-
+            await loading.delete() 
         progress_steps = [
-    ("[░░░░░░░░░░] 0%", 0.1),
-    ("[█░░░░░░░░░] 10%", 0.2),
-    ("[██░░░░░░░░] 20%", 0.2),
-    ("[███░░░░░░░] 30%", 0.2),
-    ("[████░░░░░░] 40%", 0.2),
-    ("[█████░░░░░] 50%", 0.2),
-    ("[██████░░░░] 60%", 0.2),
-    ("[███████░░░] 70%", 0.2),
-    ("[████████░░] 80%", 0.2),
-    ("[█████████░] 90%", 0.2),
-    ("[██████████] 100%", 0.2)
-]
+            ("[░░░░░░░░░░] 0%", 0.1),
+            ("[█░░░░░░░░░] 10%", 0.2),
+            ("[██░░░░░░░░] 20%", 0.2),
+            ("[███░░░░░░░] 30%", 0.2),
+            ("[████░░░░░░] 40%", 0.2),
+            ("[█████░░░░░] 50%", 0.2),
+            ("[██████░░░░] 60%", 0.2),
+            ("[███████░░░] 70%", 0.2),
+            ("[████████░░] 80%", 0.2),
+            ("[█████████░] 90%", 0.2),
+            ("[██████████] 100%", 0.2)
+        ]
 
-bar = await message.reply_text("**Initializing...**")
-for text, delay in progress_steps:
-    await asyncio.sleep(delay)
-    await bar.edit_text(f"**{text}**")
+        bar = await message.reply_text("**Initializing...**")
+        for text, delay in progress_steps:
+           await asyncio.sleep(delay)
+           await bar.edit_text(f"**{text}**")
 
-await asyncio.sleep(0.5)
-await bar.delete()
+        await asyncio.sleep(0.5)
+        await bar.delete()
         
 
         loading = await message.reply_sticker(
