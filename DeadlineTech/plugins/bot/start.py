@@ -90,12 +90,6 @@ async def start_pm(client, message: Message, _):
                 )
     else:
         
-    # 🌀 Spinner Emoji Animation
-        spinner_emojis = ["🌀", "✨", "💫", "⚡", "🎵", "🎶"]
-        for emoji in spinner_emojis:
-            loading = await message.reply_text(emoji)
-            await asyncio.sleep(0.4)
-            await loading.delete() 
         progress_steps = [
             ("[░░░░░░░░░░] 0%", 0.1),
             ("[█░░░░░░░░░] 10%", 0.2),
@@ -122,7 +116,7 @@ async def start_pm(client, message: Message, _):
         loading = await message.reply_sticker(
                      sticker=config.START_STICKER_ID,
         )
-        await asyncio.sleep(2.5)
+        await asyncio.sleep(3)
         await loading.delete(1)
             
 
