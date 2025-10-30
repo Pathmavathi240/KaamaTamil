@@ -32,6 +32,9 @@ COPY . /app/
 # Install Python dependencies
 RUN pip3 install --no-cache-dir -U -r requirements.txt
 
+pip uninstall uvloop -y
+pip install uvloop==0.17.0
+
 # Make start script executable
 RUN chmod +x /app/start
 
