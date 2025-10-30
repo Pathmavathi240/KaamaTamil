@@ -1,5 +1,5 @@
 # ✅ Python + NodeJS (both stable versions)
-FROM python:3.10-slim
+FROM python:3.11.4-slim
 
 # ✅ Install system packages + NodeJS manually
 RUN apt-get update && apt-get install -y --no-install-recommends \
