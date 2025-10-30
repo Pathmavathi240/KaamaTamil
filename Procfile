@@ -1,1 +1,1 @@
-worker: python3 -m DeadlineTech
+worker: python3 main.py
