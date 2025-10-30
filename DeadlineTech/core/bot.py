@@ -22,10 +22,12 @@
 # ==========================================================
 
 
-import uvloop
-uvloop.install()
+#import uvloop
+#uvloop.install()
 
+#import asyncio
 import asyncio
+asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
 from pyrogram import Client, errors
 from pyrogram.enums import ChatMemberStatus, ParseMode
 
